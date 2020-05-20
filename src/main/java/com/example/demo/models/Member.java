@@ -1,10 +1,14 @@
 package com.example.demo.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -32,4 +36,8 @@ public class Member {
     @NotEmpty(message=" * Please Provide Email Address")
     @Column(name="email")
     private String email;
+
+    @OneToMany(mappedBy="member")
+    @OrderBy("id")
+    private Set<Post> posts;
 }

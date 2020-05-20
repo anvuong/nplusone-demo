@@ -36,6 +36,12 @@ public class MemberController {
       return ResponseEntity.ok(memberService.saveMember(member));
   }
 
+  @PostMapping("/members/generate")
+  public String generateMembers() {
+      memberService.generateData();
+      return "Members are being generated";
+  }
+
   @PutMapping("/members/{id}")
   public ResponseEntity<Member> updateMember(@Valid @RequestBody Member member,
     @PathVariable(value= "id") Long id) {

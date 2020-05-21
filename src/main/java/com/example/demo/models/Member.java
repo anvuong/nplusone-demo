@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -37,7 +40,8 @@ public class Member {
     @Column(name="email")
     private String email;
 
-    @OneToMany(mappedBy="member")
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="member")
     @OrderBy("id")
     private Set<Post> posts;
 }

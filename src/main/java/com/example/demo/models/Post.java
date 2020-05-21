@@ -10,7 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -25,6 +28,8 @@ public class Post {
     @NotEmpty(message="* Please Enter Content")
     private String content;
 
+    @EqualsAndHashCode.Exclude
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="member_id", nullable=false)
     private Member member;

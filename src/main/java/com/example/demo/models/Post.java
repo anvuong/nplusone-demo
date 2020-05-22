@@ -10,7 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name= "posts")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Post {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -29,7 +31,6 @@ public class Post {
     private String content;
 
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="member_id", nullable=false)
     private Member member;

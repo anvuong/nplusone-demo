@@ -3,11 +3,9 @@ package com.example.demo.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
-
-import com.example.demo.models.Member;
-import com.example.demo.services.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.models.Member;
+import com.example.demo.services.MemberService;
+
 @RestController
 @RequestMapping("/api/v1")
 public class MemberController {
@@ -29,6 +30,11 @@ public class MemberController {
   @GetMapping("/members")
   public List<Member> all() {
      return memberService.getAllMembers();
+  }
+
+  @GetMapping("/members/{id}")
+  public Optional<Member> getMemberById(@PathVariable(value= "id") Long id) {
+     return memberService.getMemberById(id);
   }
 
   @PostMapping("/members")

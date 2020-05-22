@@ -1,19 +1,20 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import com.example.demo.models.Member;
-import com.example.demo.models.Post;
-import com.example.demo.repositories.MemberRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.models.Member;
+import com.example.demo.models.Post;
+import com.example.demo.repositories.MemberRepository;
 
 @Service("memberService")
 public class MemberService {
@@ -32,6 +33,10 @@ public class MemberService {
 
    public List<Member> getAllMembers() {
        return memberRepository.findAll();
+   }
+
+   public Optional<Member> getMemberById(Long id) {
+       return memberRepository.findById(id);
    }
 
    public Member saveMember(Member member) {

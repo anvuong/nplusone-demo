@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +12,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -41,7 +43,8 @@ public class Member {
     private String email;
 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="member")
+    @OneToMany(mappedBy="member")
+    @Fetch(FetchMode.JOIN)
     @OrderBy("id")
     private Set<Post> posts;
 }

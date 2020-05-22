@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,18 @@ public class MemberController {
 
   @GetMapping("/members/{id}")
   public Optional<Member> getMemberById(@PathVariable(value= "id") Long id) {
-     return memberService.getMemberById(id);
+	  final var startedTime = new Date();
+	  final var member = memberService.getMemberById(id);
+	  final var endedTime = new Date();
+	  final var dateFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+	  System.out.println(String.format(
+			  "getMemberById with id: %d; started at: %s, ended at: %s, time taken: %.2f seconds",
+			  id,
+			  dateFormatter.format(startedTime),
+			  dateFormatter.format(endedTime),
+			  (endedTime.getTime() - startedTime.getTime()) / 1000.0
+			  ));
+	  return member;
   }
 
   @PostMapping("/members")

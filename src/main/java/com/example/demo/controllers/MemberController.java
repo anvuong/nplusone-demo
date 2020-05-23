@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.Member;
@@ -30,8 +31,8 @@ public class MemberController {
   private MemberService memberService;
 
   @GetMapping("/members")
-  public List<Member> all() {
-     return memberService.getAllMembers();
+  public List<Member> all(@RequestParam("ids") Optional<Long[]> memberIdsOptional) {
+     return memberService.getAllMembers(memberIdsOptional.orElse(null));
   }
 
   @GetMapping("/members/{id}")

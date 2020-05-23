@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,11 @@ public class MemberService {
        return memberRepository.findByEmail(email);
    }
 
-   public List<Member> getAllMembers() {
-       return memberRepository.findAll();
+   public List<Member> getAllMembers(Long[] memberIds) {
+	   if (memberIds == null || memberIds.length < 1) {
+		   return memberRepository.findAll();
+	   }
+       return memberRepository.findAllById(Arrays.asList(memberIds));
    }
 
    public Optional<Member> getMemberById(Long id) {

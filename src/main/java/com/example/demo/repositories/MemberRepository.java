@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.models.Member;
@@ -15,4 +16,7 @@ public interface MemberRepository
 
     @Query("select distinct m from Member m left outer join fetch m.posts")
     List<Member> findAll();
+
+    @Query("select distinct m from Member m left outer join fetch m.posts where m.id in :memberIds")
+    List<Member> findAllById(@Param("memberIds") List<Long> memberIds);
 }

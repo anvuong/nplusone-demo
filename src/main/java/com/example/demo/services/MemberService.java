@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,10 +32,7 @@ public class MemberService {
    }
 
    public List<Member> getAllMembers(Long[] memberIds) {
-	   if (memberIds == null || memberIds.length < 1) {
-		   return memberRepository.findAll();
-	   }
-       return memberRepository.findAllById(Arrays.asList(memberIds));
+       return memberRepository.findAllMembersWithPosts(memberIds);
    }
 
    public Optional<Member> getMemberById(Long id) {
